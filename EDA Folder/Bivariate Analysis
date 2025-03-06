@@ -1,0 +1,97 @@
+Bivariate Analysis
+📌 Definition:
+Bivariate analysis is the process of analyzing two variables simultaneously to understand their relationship, correlation, and patterns.
+
+1️⃣ Types of Bivariate Analysis
+✅ Numerical vs. Numerical (Correlation Analysis)
+Measures the strength & direction of the relationship between two numerical variables.
+Uses Pearson correlation coefficient (r):
+𝑟
+=
+1
+r=1 → Perfect positive correlation
+𝑟
+=
+−
+1
+r=−1 → Perfect negative correlation
+𝑟
+=
+0
+r=0 → No correlation
+Example in Python:
+
+python
+Copy
+Edit
+import pandas as pd
+
+# Sample data
+data = {'Age': [22, 25, 30, 28, 32, 27, 40, 35],
+        'Salary': [25000, 28000, 35000, 32000, 40000, 31000, 50000, 45000]}
+df = pd.DataFrame(data)
+
+# Calculate correlation
+print(df.corr())
+Visualization: Scatter Plot
+
+python
+Copy
+Edit
+import matplotlib.pyplot as plt
+
+plt.scatter(df['Age'], df['Salary'])
+plt.xlabel('Age')
+plt.ylabel('Salary')
+plt.title('Age vs Salary')
+plt.show()
+✅ Key Takeaway: Helps to identify trends & relationships.
+
+✅ Categorical vs. Numerical (Group Comparison)
+Compares the distribution of a numerical variable across categories.
+Uses:
+Boxplots → Identify differences between groups.
+Mean/Median Comparison.
+Example in Python:
+
+python
+Copy
+Edit
+import seaborn as sns
+
+data = {'Department': ['HR', 'IT', 'IT', 'HR', 'Finance', 'HR', 'Finance', 'IT'],
+        'Salary': [25000, 28000, 35000, 32000, 40000, 31000, 50000, 45000]}
+df = pd.DataFrame(data)
+
+# Boxplot
+sns.boxplot(x='Department', y='Salary', data=df)
+plt.show()
+✅ Key Takeaway: Useful for salary comparisons across departments.
+
+✅ Categorical vs. Categorical (Association Analysis)
+Uses a contingency table (cross-tabulation) and Chi-Square Test.
+Best for finding associations between categorical variables.
+Example in Python:
+
+python
+Copy
+Edit
+from scipy.stats import chi2_contingency
+
+data = {'Gender': ['Male', 'Female', 'Male', 'Female', 'Male', 'Female'],
+        'Purchase': ['Yes', 'No', 'Yes', 'Yes', 'No', 'No']}
+df = pd.DataFrame(data)
+
+# Cross-tabulation
+contingency_table = pd.crosstab(df['Gender'], df['Purchase'])
+
+# Chi-square test
+chi2, p, dof, expected = chi2_contingency(contingency_table)
+
+print(f"Chi-Square Statistic: {chi2}, p-value: {p}")
+✅ Key Takeaway: Helps determine if two categorical variables are related.
+
+2️⃣ When to Use Bivariate Analysis?
+✔️ Understand relationships between variables
+✔️ Detect dependencies
+✔️ Identify key insights for predictions

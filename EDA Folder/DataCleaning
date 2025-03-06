@@ -1,0 +1,266 @@
+Data Cleaning:
+
+Simple Imputation Methods for Data Cleaning:
+When working with datasets, missing values can create issues in analysis and modeling. Simple imputation techniques help fill in these gaps efficiently. Here’s how to use them in data cleaning using Python.
+
+1️⃣ Mean Imputation (For Numerical Data)
+📌 Replace missing values with the mean of the column.
+✅ Best for normally distributed data (not skewed).
+
+Example in Python:
+python
+Copy
+Edit
+import pandas as pd
+from sklearn.impute import SimpleImputer
+
+# Sample dataset with missing values
+data = {'Age': [25, 30, None, 35, 40, None, 50]}
+df = pd.DataFrame(data)
+
+# Impute missing values with the mean
+imputer = SimpleImputer(strategy='mean')
+df['Age'] = imputer.fit_transform(df[['Age']])
+
+print(df)
+2️⃣ Median Imputation (For Skewed Numerical Data)
+📌 Replace missing values with the median value.
+✅ Best for skewed data (e.g., salaries, house prices).
+
+Example in Python:
+python
+Copy
+Edit
+imputer = SimpleImputer(strategy='median')
+df['Age'] = imputer.fit_transform(df[['Age']])
+3️⃣ Mode Imputation (For Categorical Data - Most Frequent Value)
+📌 Replace missing values with the most frequently occurring value.
+✅ Best for categorical or ordinal data (e.g., Gender, City).
+
+Example in Python:
+python
+Copy
+Edit
+imputer = SimpleImputer(strategy='most_frequent')
+df['City'] = imputer.fit_transform(df[['City']])
+4️⃣ Constant Imputation (Filling Missing Values with a Fixed Value)
+📌 Replace missing values with a specific value (e.g., 'Unknown' for categories or 0 for numbers).
+
+Example in Python:
+python
+Copy
+Edit
+imputer = SimpleImputer(strategy='constant', fill_value='Unknown')
+df['City'] = imputer.fit_transform(df[['City']])
+🔹 For numerical data:
+
+python
+Copy
+Edit
+imputer = SimpleImputer(strategy='constant', fill_value=0)
+df['Age'] = imputer.fit_transform(df[['Age']])
+Choosing the Right Imputation Method
+Imputation Method	Best For	Example
+Mean	Normally distributed numerical data	Age, Height
+Median	Skewed numerical data	Salaries, House Prices
+Mode (Most Frequent)	Categorical data	Gender, City
+Constant	Specific replacements	Filling with "Unknown" or 0
+Final Thoughts
+Use mean for normal distributions, median for skewed distributions, and mode for categorical values.
+Use constant imputation when you want to fill missing values with a fixed value.
+Would you like to explore advanced imputation techniques like KNN Imputation or ML-based Imputation
+
+
+Model-Based Imputation Methods for Data Cleaning:
+Model-based imputation uses machine learning models to predict and fill in missing values based on patterns in the data. This is more accurate than simple imputation (mean, median, mode) and works well for complex datasets.
+
+1️⃣ K-Nearest Neighbors (KNN) Imputation
+📌 How it works: Finds the k-nearest neighbors of a missing value based on feature similarity and imputes the missing value using the mean/median of those neighbors.
+✅ Best for structured numerical and categorical data with some correlation.
+
+Example in Python:
+python
+Copy
+Edit
+import pandas as pd
+import numpy as np
+from sklearn.impute import KNNImputer
+
+# Sample dataset
+data = {'Age': [25, 30, np.nan, 35, 40, np.nan, 50], 
+        'Salary': [50000, 54000, 52000, 60000, np.nan, 58000, 62000]}
+df = pd.DataFrame(data)
+
+# Applying KNN Imputer
+imputer = KNNImputer(n_neighbors=2)  # Takes mean of 2 nearest neighbors
+df_imputed = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+
+print(df_imputed)
+✅ Key Takeaway: Uses similarity-based imputation, works well for small datasets, but can be computationally expensive for large datasets.
+
+2️⃣ Regression Imputation
+📌 How it works: Uses linear or logistic regression to predict missing values based on other features in the dataset.
+✅ Best for continuous numerical data with strong relationships (e.g., predicting salary based on age and experience).
+
+Example in Python (Using Linear Regression):
+python
+Copy
+Edit
+from sklearn.linear_model import LinearRegression
+
+# Creating a dataset
+df = pd.DataFrame({'Age': [25, 30, 35, 40, 45, np.nan, 55],
+                   'Salary': [50000, 54000, 60000, 65000, 70000, 75000, 80000]})
+
+# Splitting into known and unknown values
+train_df = df[df['Age'].notnull()]
+test_df = df[df['Age'].isnull()]
+
+# Training a regression model
+model = LinearRegression()
+model.fit(train_df[['Salary']], train_df['Age'])
+
+# Predicting missing values
+df.loc[df['Age'].isnull(), 'Age'] = model.predict(test_df[['Salary']])
+
+print(df)
+✅ Key Takeaway: Best when features are highly correlated, but assumes a linear relationship which may not always be true.
+
+3️⃣ Multiple Imputation by Chained Equations (MICE)
+📌 How it works: Uses an iterative process where missing values are imputed multiple times using predictive modeling, improving accuracy.
+✅ Best for complex datasets with both numerical and categorical variables.
+
+Example in Python (Using IterativeImputer):
+python
+Copy
+Edit
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+# Sample dataset
+data = {'Age': [25, np.nan, 35, 40, 45, np.nan, 55],
+        'Salary': [50000, 54000, 60000, np.nan, 70000, 75000, 80000]}
+df = pd.DataFrame(data)
+
+# Applying Iterative Imputer (MICE)
+imputer = IterativeImputer()
+df_imputed = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+
+print(df_imputed)
+✅ Key Takeaway: More robust than single imputation, works well for large datasets, but requires more computation time.
+
+Comparison of Model-Based Imputation Methods
+Method	Best For	Pros	Cons
+KNN Imputation	Small datasets with correlated features	Captures local patterns	Slow on large datasets
+Regression Imputation	Continuous numerical data with strong relationships	Predicts missing values based on trends	Assumes linear relationships
+MICE (Iterative Imputation)	Large datasets with both categorical & numerical features	More accurate, iterative refinements	Computationally expensive
+Final Thoughts
+Use KNN when data is small and has a clear pattern.
+Use Regression when a missing feature is correlated with other features.
+Use MICE when dealing with large, complex datasets with both numerical and categorical values.
+
+
+Outlier Detection in Data Analysis
+📌 What is an Outlier?
+An outlier is a data point that significantly differs from other observations. It can be caused by errors, variability, or rare occurrences.
+
+1️⃣ Statistical Methods for Outlier Detection
+✅ Z-Score Method (Standard Deviation Approach)
+📌 Measures how many standard deviations a data point is from the mean.
+✅ Best for normally distributed numerical data.
+
+Example in Python:
+python
+Copy
+Edit
+import numpy as np
+import pandas as pd
+
+# Sample dataset
+data = {'Salary': [50000, 54000, 60000, 65000, 70000, 75000, 800000]}  # 800000 is an outlier
+df = pd.DataFrame(data)
+
+# Calculate Z-score
+df['Z-Score'] = (df['Salary'] - df['Salary'].mean()) / df['Salary'].std()
+
+# Set threshold (e.g., |Z-score| > 3)
+outliers = df[np.abs(df['Z-Score']) > 3]
+
+print(outliers)
+✅ Key Takeaway: Works well for normal distributions but not for skewed data.
+
+✅ Interquartile Range (IQR) Method
+📌 Uses quartiles to detect extreme values.
+✅ Best for skewed data & small datasets.
+
+Example in Python:
+python
+Copy
+Edit
+# Calculate IQR
+Q1 = df['Salary'].quantile(0.25)
+Q3 = df['Salary'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Define lower & upper bounds
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Identify outliers
+outliers = df[(df['Salary'] < lower_bound) | (df['Salary'] > upper_bound)]
+
+print(outliers)
+✅ Key Takeaway: Works well for non-normal distributions.
+
+2️⃣ Machine Learning Methods for Outlier Detection
+✅ Isolation Forest (IF)
+📌 An unsupervised machine learning model that isolates anomalies.
+✅ Best for high-dimensional datasets.
+
+Example in Python:
+python
+Copy
+Edit
+from sklearn.ensemble import IsolationForest
+
+# Train the model
+iso_forest = IsolationForest(contamination=0.05, random_state=42)
+df['Outlier'] = iso_forest.fit_predict(df[['Salary']])
+
+# Identify outliers (-1 indicates an outlier)
+outliers = df[df['Outlier'] == -1]
+
+print(outliers)
+✅ Key Takeaway: Works well for large datasets with multiple features.
+
+✅ DBSCAN (Density-Based Spatial Clustering)
+📌 Clusters data points and marks sparse points as outliers.
+✅ Best for non-linear & clustered data.
+
+Example in Python:
+python
+Copy
+Edit
+from sklearn.cluster import DBSCAN
+
+# Train DBSCAN model
+dbscan = DBSCAN(eps=10000, min_samples=2)
+df['Outlier'] = dbscan.fit_predict(df[['Salary']])
+
+# Identify outliers (-1 indicates an outlier)
+outliers = df[df['Outlier'] == -1]
+
+print(outliers)
+✅ Key Takeaway: Useful for non-traditional data distributions.
+
+Choosing the Right Outlier Detection Method
+Method	Best For	Pros	Cons
+Z-Score	Normally distributed data	Simple & fast	Not good for skewed data
+IQR	Skewed data	Works well for small datasets	Not great for high dimensions
+Isolation Forest	High-dimensional datasets	Works well with multiple features	Requires fine-tuning
+DBSCAN	Clustered data	Detects non-linear outliers	Sensitive to parameters
+Final Thoughts
+Use Z-score for normally distributed numerical data.
+Use IQR for small datasets with skewed distributions.
+Use Isolation Forest for high-dimensional datasets.
+Use DBSCAN when dealing with clusters

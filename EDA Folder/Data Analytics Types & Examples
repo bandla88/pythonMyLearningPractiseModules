@@ -1,0 +1,66 @@
+Data Analytics Types & Examples
+1️⃣ Descriptive Analytics (What Happened?)
+📌 Definition: Descriptive analytics summarizes past data to identify patterns and trends. It answers "What happened?" but does not explain why it happened.
+
+🔹 Example Use Cases:
+✔ Sales Performance – Monthly sales reports showing revenue trends.
+✔ Website Traffic Analysis – Tracking visitor counts over time using Google Analytics.
+✔ Customer Behavior – Measuring product return rates and customer satisfaction scores.
+
+🔹 Methods Used:
+📊 Data Aggregation – Summarizing raw data into reports.
+📈 Data Visualization – Using charts, graphs, and dashboards.
+📉 Statistical Measures – Mean, median, mode, percentages.
+
+🔹 Example:
+Total Sales in Q1 = $50,000
+Customer Satisfaction Score = 85%
+Website Bounce Rate = 40%
+✅ Key Takeaway: Helps in understanding past trends, but does not explain the causes.
+
+2️⃣ Diagnostic Analytics (Why Did It Happen?)
+📌 Definition: Diagnostic analytics identifies the reasons behind trends and helps answer "Why did it happen?"
+
+🔹 Example Use Cases:
+✔ Customer Churn Analysis – Finding reasons why customers are leaving.
+✔ Sales Decline Investigation – Identifying why revenue dropped in Q3.
+✔ Website Traffic Drop – Diagnosing reasons for a sudden dip in visitors.
+
+🔹 Methods Used:
+🔍 Drill-Down Analysis – Breaking down data into smaller parts.
+📊 Correlation Analysis – Finding relationships between variables.
+📉 Root Cause Analysis (RCA) – Pinpointing the main cause of a problem.
+
+🔹 Example:
+Sales in Q3 dropped by 20% → Diagnosed as marketing budget cuts & product delays.
+Website Traffic Fell by 30% → Diagnosed as SEO ranking drop due to a Google algorithm update.
+✅ Key Takeaway: Explains "why" an event happened using detailed analysis and correlation techniques.
+
+3️⃣ Predictive Analytics (What Will Happen?)
+📌 Definition: Predictive analytics uses historical data, machine learning, and statistics to forecast future trends. It helps businesses make proactive decisions based on predictions.
+
+🔹 Example Use Cases:
+✔ Sales Forecasting – Predicting next quarter’s revenue based on trends.
+✔ Customer Churn Prediction – Identifying customers who are likely to leave.
+✔ Fraud Detection – Predicting fraudulent transactions in banking.
+
+🔹 Methods Used:
+🤖 Machine Learning Models – Regression, classification, time-series forecasting.
+📈 Trend Analysis – Identifying seasonal and long-term patterns.
+🔮 Probability Scoring – Calculating the likelihood of future events.
+
+🔹 Example:
+Customer Churn Prediction Model → Identifies high-risk customers and triggers retention offers.
+Sales Prediction Model → Forecasts 10% revenue growth next quarter.
+Loan Default Risk → Predicts which loan applicants may default based on credit history.
+✅ Key Takeaway: Predicts future trends using data-driven algorithms and models.
+
+Comparison Table for Quick Revision
+Analytics Type	Key Question	Purpose	Example
+Descriptive Analytics	What happened?	Summarizes past data	Monthly sales reports, website visits
+Diagnostic Analytics	Why did it happen?	Finds causes of trends	Analyzing sales drop, customer churn
+Predictive Analytics	What will happen?	Forecasts future trends	Churn prediction, sales forecasting
+Final Thoughts
+Descriptive Analytics → "What happened?" (Summarizing past data)
+Diagnostic Analytics → "Why did it happen?" (Finding causes & patterns)
+Predictive Analytics → "What will happen?" (Forecasting future trends)

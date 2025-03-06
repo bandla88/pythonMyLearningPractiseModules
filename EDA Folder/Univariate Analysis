@@ -1,0 +1,74 @@
+1️⃣ Types of Univariate Analysis
+✅ Descriptive Statistics (Numerical Summary)
+It summarizes the main characteristics of the variable.
+
+📌 Key Measures:
+
+Mean (Average) → Central tendency
+Median → Middle value
+Mode → Most frequent value
+Variance & Standard Deviation → Spread of data
+Range & IQR → Spread of extreme values
+Example in Python:
+python
+Copy
+Edit
+import pandas as pd
+
+# Sample data
+data = {'Age': [22, 25, 30, 28, 32, 27, 40, 35, 22, 28]}
+df = pd.DataFrame(data)
+
+# Descriptive statistics
+print(df.describe())
+✅ Key Takeaway: Useful for understanding summary statistics.
+
+✅ Frequency Distribution (Categorical Data)
+📌 Used for categorical variables to count occurrences of each category.
+
+Example in Python:
+python
+Copy
+Edit
+# Sample data
+data = {'Department': ['HR', 'IT', 'IT', 'HR', 'Finance', 'HR', 'Finance', 'IT', 'IT', 'Finance']}
+df = pd.DataFrame(data)
+
+# Frequency distribution
+print(df['Department'].value_counts())
+✅ Key Takeaway: Helps in understanding categorical variable distribution.
+
+✅ Visualization Techniques
+1️⃣ Histogram (Numerical Data)
+
+Shows the distribution of a variable.
+Best for continuous variables (e.g., salary, age).
+python
+Copy
+Edit
+import matplotlib.pyplot as plt
+
+df['Age'].plot(kind='hist', bins=5, edgecolor='black')
+plt.title('Age Distribution')
+plt.show()
+2️⃣ Boxplot (Outlier Detection)
+
+Displays median, quartiles, and outliers.
+python
+Copy
+Edit
+df.boxplot(column=['Age'])
+plt.show()
+3️⃣ Bar Plot (Categorical Data)
+
+Shows frequency distribution.
+python
+Copy
+Edit
+df['Department'].value_counts().plot(kind='bar')
+plt.show()
+2️⃣ When to Use Univariate Analysis?
+✔️ Understand Data Distribution
+✔️ Detect Outliers & Skewness
+✔️ Identify Missing Values
+✔️ Summarize Data Quickly
